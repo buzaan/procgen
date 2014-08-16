@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.canvas.*?>
+<?import com.example.procgen.MainApp?>
+
+<BorderPane id="BorderPane"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.procgen.FXMLController">
+    <top>
+        <MenuBar useSystemMenuBar="true">
+            <menus>
+                <Menu text="Generator">
+                    <items>
+                        <RadioMenuItem onAction="#handleRandomMenuAction" text="Random" fx:id="random">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="gen"/>
+                            </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem onAction="#handleBinaryMenuAction" text="Binary partition" fx:id="binary">
+                            <toggleGroup>
+                                <fx:reference source="gen"/>
+                            </toggleGroup>
+                        </RadioMenuItem>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+
+    <center>
+        <Canvas fx:id="canvas">
+            <width><MainApp fx:constant="X_DIM"/></width>
+            <height><MainApp fx:constant="Y_DIM"/></height>
+        </Canvas>
+    </center>
+    <bottom>
+        <Button text="Generate"
+                onAction="#handleButtonAction"
+                fx:id="button" />
+    </bottom>
+</BorderPane>
