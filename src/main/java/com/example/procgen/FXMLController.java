@@ -3,6 +3,9 @@ package com.example.procgen;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.concurrent.Task;
@@ -13,13 +16,26 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.paint.Color;
 
 public class FXMLController implements Initializable {
     private final Logger log = Logger.getLogger(FXMLController.class.getName());
     private IMapGenerator generator =
             //new RandomMapGenerator(MainApp.X_CELLS, MainApp.Y_CELLS);
-            new BinaryPartitionMapGenerator(MainApp.X_CELLS, MainApp.Y_CELLS);
+            //new BinaryPartitionMapGenerator(MainApp.X_CELLS, MainApp.Y_CELLS);
+            new CellularAutomataMapGenerator(MainApp.X_CELLS, MainApp.Y_CELLS);
+    private final Executor executor = Executors.newFixedThreadPool(
+            1, new DaemonThreadFactory());
+
+    private class DaemonThreadFactory implements ThreadFactory {
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread out = new Thread(r);
+            out.setDaemon(true);
+            return out;
+        }
+    }
 
     @FXML
     private Canvas canvas;
@@ -32,7 +48,6 @@ public class FXMLController implements Initializable {
                 return generator.generate();
             }
         };
-
         task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
@@ -46,7 +61,7 @@ public class FXMLController implements Initializable {
                 }
             }
         });
-        task.run();
+        executor.execute(task);
     }
 
     @FXML
