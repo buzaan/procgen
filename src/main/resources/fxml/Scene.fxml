@@ -21,7 +21,12 @@
                                 <ToggleGroup fx:id="gen"/>
                             </toggleGroup>
                         </RadioMenuItem>
-                        <RadioMenuItem onAction="#handleBinaryMenuAction" text="Binary partition" fx:id="binary">
+                        <RadioMenuItem onAction="#handleBinaryMenuAction" text="Binary Partition" fx:id="binary">
+                            <toggleGroup>
+                                <fx:reference source="gen"/>
+                            </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem onAction="#handleCAMenuAction" text="Cellular Automaton" fx:id="celluar">
                             <toggleGroup>
                                 <fx:reference source="gen"/>
                             </toggleGroup>

@@ -59,6 +59,11 @@ public class FXMLController implements Initializable {
         generator = new BinaryPartitionMapGenerator(MainApp.X_CELLS, MainApp.Y_CELLS);
     }
 
+    @FXML
+    private void handleCAMenuAction(ActionEvent event) {
+        generator = new CellularAutomataMapGenerator(MainApp.X_CELLS, MainApp.Y_CELLS);
+    }
+
     private void displayMap(Map map) {
         GraphicsContext ctx = canvas.getGraphicsContext2D();
         ctx.setFill(Color.BLACK);
