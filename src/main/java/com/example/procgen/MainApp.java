@@ -2,23 +2,17 @@ package com.example.procgen;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 
 public class MainApp extends Application {
     public static final int CELL_SIZE = 10;
     public static final int X_CELLS = 50;
     public static final int Y_CELLS = 50;
 
-    @FXML
     public static final int X_DIM = CELL_SIZE * X_CELLS;
-
-    @FXML
     public static final int Y_DIM = CELL_SIZE * Y_CELLS;
 
     @Override

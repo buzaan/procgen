@@ -21,7 +21,7 @@ public class RandomMapGenerator implements IMapGenerator {
         Map out = new Map(xSize, ySize);
         for(int x = 0; x < xSize; x++) {
             for(int y = 0; y < ySize; y++) {
-                out.setTile(x, y, rnd.nextBoolean() ? 1 : 0);
+                out.setTile(x, y, rnd.nextBoolean() ? Map.SPACE : Map.WALL);
             }
         }
         return out;
