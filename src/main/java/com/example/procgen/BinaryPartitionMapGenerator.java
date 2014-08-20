@@ -3,7 +3,14 @@ package com.example.procgen;
 import java.util.Random;
 
 /**
+ * Generates a map by recursively subdividing  the space.
+ * This map generation strategy recursively divides the map space into two
+ * segments. Once a minimum threshold is reached it places a room in that area
+ * and then connects adjacent regions with a hallway.
  *
+ * Tweaking the way it divides the space (currently is splits it right down the
+ * middle), the shape of the room generated, and the way hallways are created
+ * could make for more interesting maps.
  * @author buzaan
  */
 public class BinaryPartitionMapGenerator implements IMapGenerator {
@@ -50,29 +57,26 @@ public class BinaryPartitionMapGenerator implements IMapGenerator {
         int rightY = (right.y2 + right.y1) / 2;
 
         // Dig out a hall from the left...
-        for (int x = left.x2; x <= midX; x++) {
+        for (int x = left.x2 + 1; x <= midX; x++) {
             m.setTile(x, leftY, Map.SPACE);
         }
-        for (int x = left.x2 - 1; x > 0 && m.getTile(x, leftY) == Map.WALL; x--) {
+
+        for (int x = left.x2; x > 0 && m.getTile(x, leftY) == Map.WALL; x--) {
             m.setTile(x, leftY, Map.SPACE);
         }
 
         // ... and right...
-        for (int x = right.x1; x >= midX; x--) {
+        for (int x = right.x1 - 1; x >= midX; x--) {
+            m.setTile(x, rightY, Map.SPACE);
+        }
+        for (int x = right.x1; x < m.getWidth() && m.getTile(x, rightY) == Map.WALL; x++) {
             m.setTile(x, rightY, Map.SPACE);
         }
 
-        for (int x = right.x1 + 1; x < m.getWidth() && m.getTile(x, leftY) == Map.WALL; x++) {
-            m.setTile(x, rightY, Map.SPACE);
-        }
-
-        // ... and then connect the two.
-        if(leftY < rightY) {
-            for(int y = leftY; y != rightY + 1; y++) {
-                m.setTile(midX, y, Map.SPACE);
-            }
-        } else if(leftY > rightY) {
-            for(int y = leftY; y != rightY - 1; y--) {
+        if(leftY != rightY) {
+            // ... and then connect the two.
+            int dir = leftY < rightY ? 1 : -1;
+            for(int y = leftY; y != rightY + dir; y += dir) {
                 m.setTile(midX, y, Map.SPACE);
             }
         }
@@ -84,30 +88,26 @@ public class BinaryPartitionMapGenerator implements IMapGenerator {
         int topX = (top.x1 + top.x2) / 2;
         int botX = (bot.x1 + bot.x2) / 2;
 
-        for(int y = top.y2; y <= midY; y++) {
+        for(int y = top.y2 + 1; y <= midY; y++) {
             m.setTile(topX, y, Map.SPACE);
         }
-        for(int y = top.y2 - 1; y > 0 && m.getTile(topX, y) == Map.WALL; y--) {
+        for(int y = top.y2; y > 0 && m.getTile(topX, y) == Map.WALL; y--) {
             m.setTile(topX, y, Map.SPACE);
         }
 
-        for(int y = bot.y1; y >= midY; y--) {
+        for(int y = bot.y1 - 1; y >= midY; y--) {
             m.setTile(botX, y, Map.SPACE);
         }
-        for(int y = bot.y1 + 1; y < m.getHeight() &&  m.getTile(botX, y) == Map.WALL; y++) {
+        for(int y = bot.y1; y < m.getHeight() &&  m.getTile(botX, y) == Map.WALL; y++) {
             m.setTile(botX, y, Map.SPACE);
         }
 
-        if(topX < botX) {
-            for(int x = topX; x != botX + 1; x++ ) {
-                m.setTile(x, midY, Map.SPACE);
-            }
-        } else if(topX > botX) {
-            for(int x = topX; x != botX - 1; x--) {
+        if(topX != botX) {
+            int dir = topX < botX ? 1 : -1;
+            for(int x = topX; x != botX + dir; x += dir) {
                 m.setTile(x, midY, Map.SPACE);
             }
         }
-
         return Rect.enclosing(top, bot);
     }
 
