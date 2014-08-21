@@ -1,17 +1,16 @@
-
 package com.example.procgen;
 
 public class Map {
     private final int width;
     private final int height;
-    private final int[][] data;
+    private final int[] data;
     public static final int WALL = 0x000000;
     public static final int SPACE = 0xffffff;
 
     public Map(int width, int height) {
         this.width = width;
         this.height = height;
-        data = new int[width][height];
+        data = new int[width * height];
     }
 
     public int getWidth() {
@@ -23,20 +22,11 @@ public class Map {
     }
 
     public int getTile(int x, int y) {
-        try {
-            return data[x][y];
-        } catch(ArrayIndexOutOfBoundsException e) {
-
-        }
-        return 0;
+        return data[x + y * width];
     }
 
     public void setTile(int x, int y, int value) {
-        try {
-            data[x][y] = value;
-        } catch(ArrayIndexOutOfBoundsException e) {
-
-        }
+        data[x + y * width] = value;
     }
 
     public void fillRegion(int x, int y, int w, int h, int c) {
@@ -45,5 +35,9 @@ public class Map {
                 setTile(i, j, c);
             }
         }
+    }
+
+    public static void copy(Map src, Map dest) {
+        System.arraycopy(src.data, 0, dest.data, 0, src.data.length);
     }
 }

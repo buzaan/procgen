@@ -44,8 +44,6 @@
         </Canvas>
     </center>
     <bottom>
-        <Button text="Generate"
-                onAction="#handleButtonAction"
-                fx:id="button" />
+        <Button text="Generate" onAction="#handleButtonAction" fx:id="button"/>
     </bottom>
 </BorderPane>

@@ -51,7 +51,7 @@ public class CellularAutomataMapGenerator implements IMapGenerator {
                 tempMap.setTile(x, y, rule(m, x, y));
             }
         }
-        copyMap(tempMap, m);
+        Map.copy(tempMap, m);
     }
 
     @Override
