@@ -33,7 +33,7 @@ public class InterpolatedTerrainGenerator implements IMapGenerator {
 
         @Override
         public int value(int x, int y) {
-            // The lattice x & values will be the floor of our map point
+            // The lattice x & y values will be the floor of our map point
             // divided by the ratio.
             int lx = x / ratio;
             int ly = y / ratio;
@@ -45,16 +45,15 @@ public class InterpolatedTerrainGenerator implements IMapGenerator {
             int q11 = lattice.getTile(lx + 1, ly + 1);
 
             // How far the location is in each region is given by the modulus
-            // of the x & y values and the ratio
+            // of the x & y values and the ratio. "Interior" x & y
             int ix = x % ratio;
             int iy = y % ratio;
-            double step = 1.0 / Math.pow(ratio, 2);
-            int out = (int)(step * (
-                      (q00 * ix * iy)
-                    + (q10 * (ratio - ix) * iy)
-                    + (q01 * ix * (ratio - iy))
-                    + (q11 * (ratio - ix) * (ratio - iy))));
-            return tileIntensity(out & 0xff);
+            int sum = (q11 * ix * iy)
+                    + (q01 * (ratio - ix) * iy)
+                    + (q10 * ix * (ratio - iy))
+                    + (q00 * (ratio - ix) * (ratio - iy));
+            int out = (int)(sum / (ratio * ratio));
+            return tileIntensity(out);
         }
     }
 
