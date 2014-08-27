@@ -53,6 +53,7 @@ public class FXMLController implements Initializable {
                 try {
                     Map map = task.get();
                     displayMap(map);
+                    log.log(Level.INFO, "Generation successful.");
                 } catch(InterruptedException ex) {
                     log.log(Level.SEVERE, "Generation interrupted", ex);
                 } catch (ExecutionException ex) {
@@ -76,6 +77,20 @@ public class FXMLController implements Initializable {
     @FXML
     private void handleCAMenuAction(ActionEvent event) {
         generator = new CellularAutomataMapGenerator(MainApp.X_CELLS, MainApp.Y_CELLS);
+    }
+
+    @FXML
+    private void handleBilinearTerrainAction(ActionEvent event) {
+        // Having to repeat the map dimensions is a nuisance.
+        // Not liking this design...
+        generator = new InterpolatedTerrainGenerator(
+                MainApp.X_CELLS,
+                MainApp.Y_CELLS,
+                new InterpolatedTerrainGenerator.Bilinear(
+                        MainApp.X_CELLS,
+                        MainApp.Y_CELLS,
+                        10)
+        );
     }
 
     private void displayMap(Map map) {

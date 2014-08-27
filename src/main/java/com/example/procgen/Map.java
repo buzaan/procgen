@@ -40,4 +40,16 @@ public class Map {
     public static void copy(Map src, Map dest) {
         System.arraycopy(src.data, 0, dest.data, 0, src.data.length);
     }
+
+    public static interface Functor {
+        int value(int x, int y);
+    }
+
+    public void apply(Functor f) {
+        for(int x = 0; x < width; x++) {
+            for(int y = 0; y < height; y++) {
+                setTile(x, y, f.value(x, y));
+            }
+        }
+    }
 }
