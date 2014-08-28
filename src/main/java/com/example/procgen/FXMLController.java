@@ -81,16 +81,18 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void handleBilinearTerrainAction(ActionEvent event) {
-        // Having to repeat the map dimensions is a nuisance.
-        // Not liking this design...
         generator = new InterpolatedTerrainGenerator(
                 MainApp.X_CELLS,
                 MainApp.Y_CELLS,
-                new InterpolatedTerrainGenerator.Bilinear(
-                        MainApp.X_CELLS,
-                        MainApp.Y_CELLS,
-                        10)
-        );
+                InterpolatedTerrainGenerator.Bilinear(10));
+    }
+
+    @FXML
+    private void handleBicubicTerrainAction(ActionEvent event) {
+        generator = new InterpolatedTerrainGenerator(
+                MainApp.X_CELLS,
+                MainApp.Y_CELLS,
+                InterpolatedTerrainGenerator.Bicubic(10));
     }
 
     private void displayMap(Map map) {

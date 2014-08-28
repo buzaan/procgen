@@ -36,6 +36,11 @@
                                 <fx:reference source="gen"/>
                             </toggleGroup>
                         </RadioMenuItem>
+                        <RadioMenuItem onAction="#handleBicubicTerrainAction" text="Interpolated (Cubic)" fx:id="bicubic">
+                            <toggleGroup>
+                                <fx:reference source="gen"/>
+                            </toggleGroup>
+                        </RadioMenuItem>
                     </items>
                 </Menu>
             </menus>
