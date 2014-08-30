@@ -95,6 +95,14 @@ public class FXMLController implements Initializable {
                 InterpolatedTerrainGenerator.Bicubic(10));
     }
 
+    @FXML
+    private void handleGradientAction(ActionEvent event) {
+        generator = new InterpolatedTerrainGenerator(
+                MainApp.X_CELLS,
+                MainApp.Y_CELLS,
+                InterpolatedTerrainGenerator.Gradient(10));
+    }
+
     private void displayMap(Map map) {
         GraphicsContext ctx = canvas.getGraphicsContext2D();
         ctx.setFill(Color.BLACK);

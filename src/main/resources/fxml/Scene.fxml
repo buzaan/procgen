@@ -41,6 +41,11 @@
                                 <fx:reference source="gen"/>
                             </toggleGroup>
                         </RadioMenuItem>
+                        <RadioMenuItem onAction="#handleGradientAction" text="Gradient">
+                            <toggleGroup>
+                                <fx:reference source="gen"/>
+                            </toggleGroup>
+                        </RadioMenuItem>
                     </items>
                 </Menu>
             </menus>
