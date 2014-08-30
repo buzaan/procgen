@@ -1,4 +1,4 @@
-package com.example.procgen;
+package buzaan.procgen;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;

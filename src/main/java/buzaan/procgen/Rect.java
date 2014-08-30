@@ -1,5 +1,5 @@
 
-package com.example.procgen;
+package buzaan.procgen;
 
 /**
  *

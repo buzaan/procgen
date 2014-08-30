@@ -1,4 +1,4 @@
-package com.example.procgen;
+package buzaan.procgen;
 
 interface IMapGenerator {
     Map generate();

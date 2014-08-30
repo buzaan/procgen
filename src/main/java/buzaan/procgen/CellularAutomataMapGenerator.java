@@ -1,5 +1,5 @@
 
-package com.example.procgen;
+package buzaan.procgen;
 
 /**
  * Generates a map using simple CA rules.

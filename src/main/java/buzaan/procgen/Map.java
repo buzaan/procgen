@@ -1,4 +1,4 @@
-package com.example.procgen;
+package buzaan.procgen;
 
 public class Map {
     private final int width;

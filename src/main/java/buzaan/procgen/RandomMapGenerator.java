@@ -1,4 +1,4 @@
-package com.example.procgen;
+package buzaan.procgen;
 
 import java.util.Random;
 
