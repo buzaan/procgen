@@ -267,11 +267,7 @@ public class InterpolatedTerrainGenerator implements IMapGenerator {
     public Map generate() {
         Map out = new Map(mapWidth, mapHeight);
         method.randomizeLattice();
-        try {
-            out.apply(method);
-        } catch(ArrayIndexOutOfBoundsException e) {
-            System.err.println("Baddness");
-        }
+        out.apply(method);
         return out;
     }
 

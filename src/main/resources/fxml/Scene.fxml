@@ -6,11 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.canvas.*?>
-<?import com.example.procgen.MainApp?>
+<?import buzaan.procgen.MainApp?>
 
 <BorderPane id="BorderPane"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.procgen.FXMLController">
+            fx:controller="buzaan.procgen.FXMLController">
     <top>
         <MenuBar useSystemMenuBar="true">
             <menus>
@@ -42,6 +42,11 @@
                             </toggleGroup>
                         </RadioMenuItem>
                         <RadioMenuItem onAction="#handleGradientAction" text="Gradient">
+                            <toggleGroup>
+                                <fx:reference source="gen"/>
+                            </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem onAction="#handleFractalAction" text = "Fractal">
                             <toggleGroup>
                                 <fx:reference source="gen"/>
                             </toggleGroup>

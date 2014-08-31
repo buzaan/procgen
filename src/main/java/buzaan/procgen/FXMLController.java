@@ -44,6 +44,7 @@ public class FXMLController implements Initializable {
         final Task<Map> task = new Task<Map>() {
             @Override
             protected Map call() throws Exception {
+                Thread.currentThread().setName("Generator");
                 return generator.generate();
             }
         };
@@ -84,7 +85,7 @@ public class FXMLController implements Initializable {
         generator = new InterpolatedTerrainGenerator(
                 MainApp.X_CELLS,
                 MainApp.Y_CELLS,
-                InterpolatedTerrainGenerator.Bilinear(10));
+                InterpolatedTerrainGenerator.Bilinear(8));
     }
 
     @FXML
@@ -92,7 +93,7 @@ public class FXMLController implements Initializable {
         generator = new InterpolatedTerrainGenerator(
                 MainApp.X_CELLS,
                 MainApp.Y_CELLS,
-                InterpolatedTerrainGenerator.Bicubic(10));
+                InterpolatedTerrainGenerator.Bicubic(8));
     }
 
     @FXML
@@ -100,7 +101,13 @@ public class FXMLController implements Initializable {
         generator = new InterpolatedTerrainGenerator(
                 MainApp.X_CELLS,
                 MainApp.Y_CELLS,
-                InterpolatedTerrainGenerator.Gradient(10));
+                InterpolatedTerrainGenerator.Gradient(8));
+    }
+
+    @FXML
+    private void handleFractalAction(ActionEvent event) {
+        generator = new FractalTerrainGenerator(
+                MainApp.X_CELLS, MainApp.Y_CELLS, 8);
     }
 
     private void displayMap(Map map) {
