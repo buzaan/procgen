@@ -7,7 +7,7 @@ package buzaan.procgen;
  * generate a cave-like map. The initial state is seeded by a RandomMapGenerator
  * and then a CA rule is applied to each cell for a number of generations.
  *
- * The generated map may be disjoint, but this is possibility is ignored for now.
+ * The generated map may be disjoint, but this possibility is ignored for now.
  * @author buzaan
  */
 public class CellularAutomataMapGenerator implements IMapGenerator {
